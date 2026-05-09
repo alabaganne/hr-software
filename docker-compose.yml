@@ -1,91 +1,98 @@
 version: '3.8'
 
 services:
-  # MySQL Database
   db:
     image: mysql:8.0
-    container_name: hr_mysql
+    container_name: hr_vue2_compare_mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE:-hr_management}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
-      MYSQL_USER: ${DB_USERNAME:-hr_user}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-hr_password}
-    ports:
-      - "3306:3306"
+      MYSQL_DATABASE: ${DB_DATABASE:-hr_management_vue2_docker}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-hr_vue2_root_password}
+      MYSQL_USER: ${DB_USERNAME:-hr_vue2_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-hr_vue2_password}
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
-      - hr_network
+      - hr_vue2_compare_network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_ROOT_PASSWORD:-hr_vue2_root_password}"]
       timeout: 20s
-      retries: 10
+      retries: 20
 
-  # Laravel Backend
   backend:
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: hr_backend
+    container_name: hr_vue2_compare_backend
     restart: unless-stopped
     working_dir: /var/www
     environment:
+      APP_NAME: "Satoripop RH Vue2 Compare"
+      APP_ENV: ${APP_ENV:-local}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_URL: http://187.124.184.74:8003
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
-      DB_DATABASE: ${DB_DATABASE:-hr_management}
-      DB_USERNAME: ${DB_USERNAME:-hr_user}
-      DB_PASSWORD: ${DB_PASSWORD:-hr_password}
-      JWT_SECRET: ${JWT_SECRET:-your-jwt-secret-key}
+      DB_DATABASE: ${DB_DATABASE:-hr_management_vue2_docker}
+      DB_USERNAME: ${DB_USERNAME:-hr_vue2_user}
+      DB_PASSWORD: ${DB_PASSWORD:-hr_vue2_password}
+      JWT_SECRET: ${JWT_SECRET:-hr-vue2-compare-jwt-secret-change-me}
+      CACHE_DRIVER: file
+      SESSION_DRIVER: file
+      QUEUE_CONNECTION: sync
+      REDIS_HOST: redis
     ports:
-      - "8000:80"
+      - "8003:80"
     volumes:
       - ./server:/var/www
-      - /var/www/vendor
+      - backend_vendor:/var/www/vendor
       - ./server/storage:/var/www/storage
       - ./server/bootstrap/cache:/var/www/bootstrap/cache
     depends_on:
       db:
         condition: service_healthy
     networks:
-      - hr_network
+      - hr_vue2_compare_network
 
-  # Vue.js Frontend
   frontend:
     build:
       context: ./client
       dockerfile: Dockerfile
       target: development-stage
-    container_name: hr_frontend
+    container_name: hr_vue2_compare_frontend
     restart: unless-stopped
     environment:
-      VUE_APP_API_URL: http://localhost:8000/api
-      VUE_APP_BASE_URL: http://localhost:8000
+      HOST: 0.0.0.0
+      PORT: 8080
+      CHOKIDAR_USEPOLLING: "true"
+      VUE_APP_API_URL: http://187.124.184.74:8003/api
+      VUE_APP_BASE_URL: http://187.124.184.74:8003
     ports:
-      - "8080:8080"
+      - "3001:8080"
     volumes:
       - ./client:/app
-      - /app/node_modules
+      - frontend_node_modules:/app/node_modules
     depends_on:
       - backend
     networks:
-      - hr_network
+      - hr_vue2_compare_network
 
-  # Redis (optional - for caching/sessions)
   redis:
     image: redis:alpine
-    container_name: hr_redis
+    container_name: hr_vue2_compare_redis
     restart: unless-stopped
-    ports:
-      - "6379:6379"
     networks:
-      - hr_network
+      - hr_vue2_compare_network
 
 volumes:
   mysql_data:
     driver: local
+  backend_vendor:
+    driver: local
+  frontend_node_modules:
+    driver: local
 
 networks:
-  hr_network:
+  hr_vue2_compare_network:
     driver: bridge

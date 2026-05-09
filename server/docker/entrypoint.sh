@@ -23,14 +23,21 @@ php artisan key:generate --force
 echo "Running migrations..."
 php artisan migrate --force
 
-# Seed database if tables are empty
-echo "Seeding database..."
-php artisan db:seed --force
+# Seed database once. The legacy seeders are not idempotent.
+if [ "$(php artisan tinker --execute="echo App\\Models\\User::count();" 2>/dev/null | tail -n 1)" = "0" ]; then
+  echo "Seeding database..."
+  php artisan db:seed --force
+else
+  echo "Database already seeded; skipping seed."
+fi
 
-# Clear and cache config
+# Clear/cache safe framework artifacts. This legacy app has a Closure route, so route:cache is invalid.
 php artisan config:cache
-php artisan route:cache
+php artisan route:clear
 php artisan view:cache
+
+# Ensure php-fpm/nginx can write logs/cache after root-run artisan bootstrapping.
+chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 # Start the main process
 exec "$@"

@@ -22,8 +22,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Composer 2.2 LTS supports PHP 7.4 cleanly.
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
 # Copy existing application directory contents
 COPY . /var/www
@@ -31,8 +31,8 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data . /var/www
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Install PHP dependencies, including legacy Faker because this Laravel 7 app seeds via model factories.
+RUN composer install --optimize-autoloader
 
 # Copy nginx configuration
 COPY docker/nginx.conf /etc/nginx/sites-available/default
