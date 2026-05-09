@@ -48,6 +48,19 @@
               v-if="form.errors.has('password')"
             >{{ form.errors.get("password") }}</small>
           </div>
+          <div class="demo-accounts mb-3">
+            <p class="small text-uppercase text-muted font-weight-bold mb-2">Demo accounts</p>
+            <button
+              v-for="account in demoAccounts"
+              :key="account.email"
+              type="button"
+              class="btn btn-sm btn-outline-dark rounded-pill mr-1 mb-2"
+              @click="useDemoAccount(account)"
+            >
+              {{ account.label }}
+            </button>
+            <p class="small text-muted mb-0">All demo accounts use password <strong>password</strong>.</p>
+          </div>
           <a href="#" class="d-block text-right small text-muted mb-1 comfortaa">Forget Password?</a>
           <button
             class="btn btn-block btn-lg btn-dark rounded-0"
@@ -70,9 +83,15 @@ export default {
   data() {
     return {
       form: new Form({
-        email: "",
-        password: "",
+        email: "manager@example.com",
+        password: "password",
       }),
+      demoAccounts: [
+        { label: "Admin / Manager", email: "manager@example.com" },
+        { label: "Human Resources", email: "rh@example.com" },
+        { label: "Project Manager", email: "projectmanager@example.com" },
+        { label: "Employee", email: "employee@example.com" },
+      ],
       invalidCredentialsError: false,
       disabledSubmitButton: false,
     };
@@ -81,6 +100,14 @@ export default {
     ...mapActions({
       attempt: "auth/attempt",
     }),
+    useDemoAccount(account) {
+      this.form.email = account.email;
+      this.form.password = "password";
+      this.invalidCredentialsError = false;
+      this.disabledSubmitButton = false;
+      this.form.errors.clear("email");
+      this.form.errors.clear("password");
+    },
     submit() {
       this.invalidCredentialsError = false;
       this.form.post("/auth/login").then(response => {
@@ -113,6 +140,11 @@ export default {
 }
 input.form-control-lg {
   font-size: 14pt;
+}
+.demo-accounts {
+  border: 1px solid #eee;
+  background: #fafafa;
+  padding: 1rem;
 }
 #loginContainer {
   max-width: 850px;

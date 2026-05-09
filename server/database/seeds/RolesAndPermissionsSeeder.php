@@ -129,6 +129,30 @@ class RolesAndPermissionsSeeder extends Seeder
                 'allowed_leave_days' => 30,
                 'department_id' => 1
             ])->syncRoles($admin);
+
+            User::create([
+                'name' => 'Alex Employee',
+                'username' => 'alex.employee',
+                'email' => 'employee@example.com',
+                'password' => Hash::make('password'),
+                'phone_number' => '555-0199',
+                'date_of_birth' => '1994-04-18',
+                'address' => '99 Employee Lane, City, State',
+                'civil_status' => 'single',
+                'gender' => 'male',
+                'id_card_number' => '99887766',
+                'nationality' => 'American',
+                'university' => 'Berkeley',
+                'history' => 'Software engineer in the product team',
+                'experience_level' => 3,
+                'source' => 'recruitment',
+                'position' => 'Software Engineer',
+                'grade' => 'Mid-level',
+                'hiring_date' => '2022-09-01',
+                'contract_end_date' => '2030-09-01',
+                'allowed_leave_days' => 18,
+                'department_id' => 1
+            ]);
         } catch(Throwable $e) {
             report($e);
             error_log('ERROR: User already exists' . $this->migrationRequiredMessage);
