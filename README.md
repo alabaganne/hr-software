@@ -61,8 +61,8 @@ HR solution for managing employee profiles, leave requests, skills tracking, tra
 #### Installation with Docker
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/alabaganne/employee-management.git
+cd employee-management
 
 # Copy environment files
 cp .env.docker .env
@@ -113,8 +113,8 @@ docker-compose exec db mysql -u hr_user -p hr_management
 
 1. **Clone the repository**
 ```bash
-git clone <repository-url>
-cd <project-directory>
+git clone https://github.com/alabaganne/employee-management.git
+cd employee-management
 ```
 
 2. **Backend Setup**
