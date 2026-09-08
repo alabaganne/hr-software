@@ -173,3 +173,9 @@ This project was developed as part of a summer internship program. Please refer 
 ## Author
 
 Developed by a dedicated intern during summer internship program, showcasing full-stack development skills with modern web technologies.
+
+## Demo
+
+[Open the demo](https://hr-management.alabaganne.com).
+
+![employee-management screenshot](https://raw.githubusercontent.com/alabaganne/Portfolio/main/public/projects/satoripop-rh-demo.png)
