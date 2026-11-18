@@ -5,9 +5,9 @@
                 <i class="fas fa-align-left fa-2x"></i>
             </a>
             <a v-else href="#" class="text-dark d-flex align-items-center">
-                <img src="@/assets/images/logo.svg" class="mr-2" width="50px" height="50px" alt="HR Manager logo">
+                <img src="@/assets/images/logo.svg" class="mr-2" width="50px" height="50px" alt="HR Software logo">
                 <div>
-                    <h3 class="font-weight-bold m-0 line-height-100">HR Manager</h3>
+                    <h3 class="font-weight-bold m-0 line-height-100">HR Software</h3>
                     <h6 class="font-weight-bold text-secondary m-0 line-height-100">people &amp; teams</h6>
                 </div>
             </a>

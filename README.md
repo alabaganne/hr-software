@@ -1,6 +1,10 @@
-# Employee Management System for HR
+# HR Software — Logiciel RH
 
 A full-stack HR management application built with Vue.js and Laravel. Developed during a summer internship.
+
+English: **HR Software**. French: **Logiciel RH**.
+
+The VPS demo at https://hr-software.alabaganne.com runs `vue2-docker-production` (Vue 2 / Laravel 7). This `main` branch contains the separate Vue 3 / Laravel 11 migration. Private environment files are not tracked.
 
 ## Tech Stack
 
@@ -61,8 +65,8 @@ HR solution for managing employee profiles, leave requests, skills tracking, tra
 #### Installation with Docker
 ```bash
 # Clone the repository
-git clone https://github.com/alabaganne/employee-management.git
-cd employee-management
+git clone https://github.com/alabaganne/hr-software.git
+cd hr-software
 
 # Copy environment files
 cp .env.docker .env
@@ -113,8 +117,8 @@ docker-compose exec db mysql -u hr_user -p hr_management
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/alabaganne/employee-management.git
-cd employee-management
+git clone https://github.com/alabaganne/hr-software.git
+cd hr-software
 ```
 
 2. **Backend Setup**
@@ -176,6 +180,6 @@ Developed by a dedicated intern during summer internship program, showcasing ful
 
 ## Demo
 
-[Open the demo](https://hr-management.alabaganne.com).
+[Open the demo](https://hr-software.alabaganne.com).
 
-![employee-management screenshot](https://raw.githubusercontent.com/alabaganne/Portfolio/main/public/projects/satoripop-rh-demo.png)
+[View the HR Software demo](https://hr-software.alabaganne.com).
