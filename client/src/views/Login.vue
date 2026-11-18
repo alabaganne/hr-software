@@ -5,7 +5,7 @@
         <div class="d-flex h-100 justify-content-center align-items-center">
           <div class="text-center p-4">
             <h1 class="display-4 text-warning">HR Software</h1>
-            <h5 class="text-white font-weight-light">Logiciel RH</h5>
+            <h5 class="text-white font-weight-light">Vos équipes, simplement.</h5>
           </div>
         </div>
       </div>
