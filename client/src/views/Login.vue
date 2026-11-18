@@ -4,8 +4,8 @@
       <div class="col-6 text-light left d-none d-md-block">
         <div class="d-flex h-100 justify-content-center align-items-center">
           <div class="text-center p-4">
-            <h1 class="display-4 text-warning">satoripop</h1>
-            <h5 class="text-white font-weight-light">Shine clever</h5>
+            <h1 class="display-4 text-warning">HR Manager</h1>
+            <h5 class="text-white font-weight-light">Your team, in one place</h5>
           </div>
         </div>
       </div>
