@@ -1,6 +1,12 @@
-# Employee Management System for HR
+# HR Software — Logiciel RH
 
 A full-stack HR management application built with Vue.js and Laravel. Developed during a summer internship.
+
+English: **HR Software**. French: **Logiciel RH**.
+
+Live demo: https://hr-software.alabaganne.com. The former `hr-management.alabaganne.com` address redirects here, preserving paths and query strings.
+
+The VPS runs the `vue2-docker-production` branch (Vue 2 / Laravel 7). The `main` branch contains the separate Vue 3 / Laravel 11 migration; it is not the deployed version. Private environment files are not tracked.
 
 ## Tech Stack
 
